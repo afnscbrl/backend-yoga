@@ -1,4 +1,5 @@
 
+require('dotenv').config()
 let pack = []
 
 const pacotes = {
@@ -37,7 +38,7 @@ const emailPayment = (nome, pacote, token) => {
 }
 
 const emailPassRecover = (nome, token) => {
-    return `<p> Olá ${nome}, aqui está o link para recuperar sua senha: <br/><br/> <a href=${'http://localhost:3000/novasenha/'+token}> Clique aqui</a></p>`
+    return `<p> Olá ${nome}, aqui está o link para recuperar sua senha: <br/><br/> <a href=${process.env.LINK_NEWPASS+token}> Clique aqui</a></p>`
 }
 
 module.exports = {emailPayment, attachments, emailPassRecover}
