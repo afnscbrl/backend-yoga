@@ -6,7 +6,7 @@ const app = express()
 require('dotenv').config()
 
 const  corsOptions = {
-    exposedHeaders: ['Authorization', 'firstLogin']
+    exposedHeaders: ['Authorization']
 }
 
 app.use(cors(corsOptions))
@@ -19,8 +19,10 @@ app.use('/alunas', routerAluna)
 const routerContato = require('./route/contato')
 app.use('/contato', routerContato)
 
+const routerAulas = require('./route/aulas')
+app.use('/aulas', routerAulas)
 
 
 mongoose.connect(process.env.MONGO_CONNECT, {useNewUrlParser:true})
 
-app.listen(PORT, () => console.log("Api up!"))
+app.listen(process.env.PORT, () => console.log("Api up!"))
