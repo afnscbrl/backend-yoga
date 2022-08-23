@@ -19,7 +19,8 @@ const campos = [
 'medicacao', 
 'emergencia',
 'objetivo',
-'emailVerified'] // add todos os campos
+'emailVerified',
+'ativo'] // add todos os campos
 
 class Aluna {
     constructor({
@@ -67,7 +68,7 @@ class Aluna {
         this.emergencia = emergencia,
         this.objetivo = objetivo, 
         this.emailVerified = emailVerified, 
-        this.lastLogin = lastLogin
+        this.lastLogin = lastLogin,
         this.ativo = ativo
     }
 
@@ -92,8 +93,9 @@ class Aluna {
         this.id = encontrado.id
         this.nome = encontrado.nome,
         this.telefone= encontrado.telefone,
-        this.nascimento= encontrado.nascimento
-        this.senha = encontrado.senha
+        this.nascimento= encontrado.nascimento,
+        this.senha = encontrado.senha,
+        this.pacote = encontrado.pacote,
         this.eCivil = encontrado.eCivil,
         this.filhos = encontrado.filhos,
         this.profissao = encontrado.profissao, 
@@ -107,7 +109,7 @@ class Aluna {
         this.emergencia = encontrado.emergencia,
         this.objetivo = encontrado.objetivo, 
         this.emailVerified = encontrado.emailVerified, 
-        this.lastLogin = encontrado.lastLogin
+        this.lastLogin = encontrado.lastLogin,
         this.ativo = encontrado.ativo
 
         //tudo
@@ -118,8 +120,9 @@ class Aluna {
         this.nome = encontrado.nome
         this.email = encontrado.email,
         this.telefone= encontrado.telefone,
-        this.nascimento= encontrado.nascimento
-        this.senha = encontrado.senha
+        this.nascimento= encontrado.nascimento,
+        this.senha = encontrado.senha,
+        this.pacote = encontrado.pacote,
         this.eCivil = encontrado.eCivil,
         this.filhos = encontrado.filhos,
         this.profissao = encontrado.profissao, 
@@ -133,7 +136,7 @@ class Aluna {
         this.emergencia = encontrado.emergencia,
         this.objetivo = encontrado.objetivo, 
         this.emailVerified = encontrado.emailVerified, 
-        this.lastLogin = encontrado.lastLogin
+        this.lastLogin = encontrado.lastLogin,
         this.ativo = encontrado.ativo
         //tudo
     }
@@ -156,7 +159,7 @@ class Aluna {
     }
 
     remover() {
-        return TabelaAluna.remover(this.id)
+        return TabelaAluna.remover(this.email)
     }
 
     gerarSenhaHash(senha) {
@@ -164,14 +167,14 @@ class Aluna {
         return bcrypt.hash(senha, custoHash)
     }
 
-    validar() {
-        campos.forEach(campo => {
-            const valor = this[campo]
-            if (valor.length === 0) {
-                throw console.error("Campo invalido ou nao fornecido");
-            }
-        })
-    }
+    // validar() {
+    //     campos.forEach(campo => {
+    //         const valor = this[campo]
+    //         if (valor.length === 0) {
+    //             throw console.error("Campo invalido ou nao fornecido");
+    //         }
+    //     })
+    // }
 
 }
 

@@ -1,9 +1,9 @@
-const Modelo = require('../../models/aluna')
+const Modelo = require('../../models/aulas')
 
 module.exports = {
 
-    inserir(aluna) {
-        return Modelo.create(aluna)
+    inserir(aula) {
+        return Modelo.create(aula)
     },
 
     listar() {
@@ -16,11 +16,11 @@ module.exports = {
         )
     },
 
-    async pegarPorEmail(email) {
+    async listarPorCategoria(categoria) {
         try {
 
-            const encontrado = await Modelo.findOne(
-                { email: email }
+            const encontrado = await Modelo.find(
+                { categoria: categoria }
             )
             return encontrado
         } catch (err) {
@@ -36,8 +36,8 @@ module.exports = {
         return encontrado
     },
 
-    remover(email) {
-        return Modelo.findOneAndDelete({email:email})
+    remover(id) {
+        return Modelo.findByIdAndDelete(id)
     }
 
 

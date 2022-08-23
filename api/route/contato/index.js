@@ -7,9 +7,9 @@ routerContato.post('/', async (req, res) => {
     const recieveData = req.body
     mailer.mailSender(
         recieveData.nome, 
-        process.env.EMAILTO, 
-        recieveData.telefone, 
-        recieveData.comentario)
+        process.env.EMAILTO,
+        "Comentário da página de contato do site" ,
+        `Email: ${recieveData.email}<br/> Telefone: ${recieveData.telefone}<br/> Comentou:<br/> "${recieveData.comentario}"`)
     res.sendStatus(200)
 })
 
