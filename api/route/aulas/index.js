@@ -32,9 +32,8 @@ routerAulas.use(verificaToken).get('/', async (req, res) => {
     }
 })
 
-routerAulas.use(verificaToken).get('/categoria', async(req, res) => {
-    const categ = req.body.categoria
-    console.log(categ)
+routerAulas.use(verificaToken).get('/:categoria', async(req, res) => {
+    const categ = req.params.categoria
     try {
         let novaAula = []
         const resultados = await TabelaAulas.listarPorCategoria(categ)
