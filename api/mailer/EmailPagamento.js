@@ -33,7 +33,19 @@ const emailPayment = (nome, pacote, token) => {
             pack.push(...pacotes[i])
         }
     })
-    return `<p>Olá ${nome}, será um prazer compartilhar essa jornada contigo! <br/><br/>Segue abaixo o QRCODE para pagamento da mensalidade via PIX. Caso queira pagar no cartão, acesse o seguinte link: <a href="${pack[0]}">${pack[0]}</a> <br/><br/><a href="${'http://localhost:3000/confirmacao/'+token}">Clique aqui para confirmar seu e-mail.</a> <br/><br/></p>Jaya ${String.fromCodePoint(0x1f64f)} <br/><br/>
+    return `<p>Olá ${nome}, será um prazer compartilhar essa jornada contigo! <br/><br/>Segue abaixo o QRCode para pagamento da mensalidade via PIX. Caso queira pagar no cartão, acesse o seguinte link: <a href="${pack[0]}">${pack[0]}</a> <br/><br/><a href="${'http://localhost:3000/confirmacao/'+token}">Clique aqui para confirmar seu e-mail.</a> <br/><br/></p>Jaya ${String.fromCodePoint(0x1f64f)} <br/><br/>
+    <img src="cid:qrcode" style="width:300px;height:300px;"/>`
+}
+
+const emailCharge = (nome, pacote, token) => {
+    Object.keys(pacotes).map( i => {
+        if (i === pacote) {
+            pack.push(...pacotes[i])
+        }
+    })
+    return `<p>Olá ${nome}, esse é um email automático para lembrar você que está com o pagamento da mensalidade em atraso.<br/><br/>
+    Segue abaixo o QRCode para pagamento da mensalidade, ou se você preferir, acesse o site e utilize o QRCode na área do aluno <br/><br/>
+    Caso queira pagar no cartão, acesse o seguinte link: <a href="${pack[0]}">${pack[0]}</a> <br/><br/>
     <img src="cid:qrcode" style="width:300px;height:300px;"/>`
 }
 
@@ -41,4 +53,4 @@ const emailPassRecover = (nome, token) => {
     return `<p> Olá ${nome}, aqui está o link para recuperar sua senha: <br/><br/> <a href=${process.env.LINK_NEWPASS+token}> Clique aqui</a></p>`
 }
 
-module.exports = {emailPayment, attachments, emailPassRecover}
+module.exports = {emailPayment, attachments, emailPassRecover, emailCharge}
