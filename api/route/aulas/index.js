@@ -3,14 +3,14 @@ const Aula = require('./Aulas')
 const TabelaAulas = require('./Tabela')
 const { verificaToken } = require('../middlewares')
 
-routerAulas.use(verificaToken).post('/', async(req, res) => {
-    const dadosRecebidos = req.body
-    try {
-        const aula = new Aula(dadosRecebidos)
-        await aula.criar()
+routerAulas.use(verificaToken).delete('/:id', async (req, res) => {
+    const dadosRecebidos = req.params.id
+    try{
+        const aula = new Aula({id: dadosRecebidos})
+        await aula.remover()
         res.sendStatus(200)
-    } catch (err) {
-        res.status(500).send(err)
+    } catch(err) {
+        res.send(err).status(500)
     }
 })
 
@@ -22,6 +22,7 @@ routerAulas.use(verificaToken).get('/', async (req, res) => {
             novaAula.push({
                 id: aula.id,
                 categoria: aula.categoria,
+                descricao: aula.descricao,
                 link: aula.link,
                 data: aula.data
             })
@@ -32,6 +33,19 @@ routerAulas.use(verificaToken).get('/', async (req, res) => {
     }
 })
 
+routerAulas.use(verificaToken).post('/', async(req, res) => {
+    const dadosRecebidos = req.body
+    try {
+        const aula = new Aula(dadosRecebidos)
+        await aula.criar()
+        res.sendStatus(200)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
+
+
 routerAulas.use(verificaToken).get('/:categoria', async(req, res) => {
     const categ = req.params.categoria
     try {
@@ -41,6 +55,7 @@ routerAulas.use(verificaToken).get('/:categoria', async(req, res) => {
             novaAula.push({
                 id: aula.id,
                 categoria: aula.categoria,
+                descricao: aula.descricao,
                 link: aula.link,
                 data: aula.data
             })
@@ -75,16 +90,6 @@ routerAulas.use(verificaToken).put('/:id', async (req, res) => {
     }
 })
 
-routerAulas.use(verificaToken).delete('/', async (req, res) => {
-    const dadosRecebidos = req.body
-    try{
 
-        const aula = new Aula(dadosRecebidos)
-        await aula.remover()
-        res.sendStatus(200)
-    } catch(err) {
-        res.send(err).status(500)
-    }
-})
 
 module.exports = routerAulas

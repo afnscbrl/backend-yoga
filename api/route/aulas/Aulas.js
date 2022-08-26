@@ -3,6 +3,7 @@ const TabelaAulas = require('./Tabela')
 
 const campos = [
     'categoria',
+    'descricao',
     'link',
     'data'
 ]
@@ -11,18 +12,21 @@ class Aula {
     constructor({
         id,
         categoria,
+        descricao,
         link,
         data
     }) {
         this.id = id,
             this.categoria = categoria,
+            this.descricao = descricao,
             this.link = link,
             this.data = data
     }
 
     async criar() {
         const resultado = await TabelaAulas.inserir({
-            categoria: this.categoria,
+            categoria: this.categoria.toUpperCase(),
+            descricao: this.descricao,
             link: this.link,
             data: this.data
         })
@@ -33,6 +37,7 @@ class Aula {
         const encontrado = await TabelaAulas.pegarPorId(this.id)
         this.id = encontrado.id,
         this.categoria = encontrado.categoria,
+        this.descricao = encontrado.descricao,
         this.link = encontrado.link,
         this.data = encontrado.data
     }
